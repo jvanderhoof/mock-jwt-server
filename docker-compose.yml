@@ -1,0 +1,12 @@
+version: "3"
+services:
+  jwt_service:
+    build:
+      context: .
+    command: sleep infinite
+    expose:
+      - "8088"
+    ports:
+      - "8088:8088"
+    volumes:
+      - .:/usr/src

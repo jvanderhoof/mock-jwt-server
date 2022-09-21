@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -ex
+set -o pipefail
+
+docker-compose build
+
+docker-compose up -d
+
+docker-compose exec jwt_service /bin/ash

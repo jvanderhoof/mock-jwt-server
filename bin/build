@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -ex
+set -o pipefail
+
+version=$(cat VERSION | tr -d '\n')
+
+
+docker build --tag "jvanderhoof/mock-jwt-server:$version" .
+docker tag "jvanderhoof/mock-jwt-server:$version" "jvanderhoof/mock-jwt-server:latest"
+
+docker push "jvanderhoof/mock-jwt-server:$version"
+docker push "jvanderhoof/mock-jwt-server:latest"
