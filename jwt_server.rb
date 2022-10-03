@@ -5,6 +5,7 @@ require 'json'
 require 'jwt'
 require 'openssl'
 require 'net/http'
+require 'securerandom'
 
 # Simple intrface for testing services which use JWT
 class JwtServer < Sinatra::Base
@@ -42,7 +43,7 @@ class JwtServer < Sinatra::Base
       )
     rescue Exception => e
       status(400)
-      body(JSON.pretty_generate( error: e ))
+      body(JSON.pretty_generate(error: e))
     end
   end
 
@@ -71,9 +72,9 @@ class JwtServer < Sinatra::Base
 
   def default_values
     {
-      'iss': 'jwt.conjur.cyberark.com',
-      'aud': '238d4793-70de-4183-9707-48ed8ecd19d9',
-      'sub': '19016b73-3ffa-4b26-80d8-aa9287738677'
+      iss: ENV.fetch('ISSUER', 'jwt.conjur.cyberark.com'),
+      aud: ENV.fetch('AUDIENCE', '238d4793-70de-4183-9707-48ed8ecd19d9'),
+      sub: ENV.fetch('SUBJECT', '19016b73-3ffa-4b26-80d8-aa9287738677')
     }
   end
 

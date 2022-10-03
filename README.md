@@ -204,7 +204,36 @@ Generates an "empty" JWKS endpoint response. This useful when testing for a mis-
 }
 ```
 
-# Contributing
+## Configuration
+
+The following values can optionally be set using environment variables:
+
+- Issuer - set using `ISSUER` environment variable
+- Audience - set using `AUDIENCE` environment variable
+- Subject - set using `SUBJECT` environment variable
+
+For example:
+
+```sh
+docker run --rm \
+    --publish 8088:8088 \
+    --env ISSUER=http://jwt.mycompany.com \
+    --env AUDIENCE=ansible \
+    --env SUBJECT=development \
+    jvanderhoof/mock-jwt-server
+```
+
+Yields the following JWT claims (as viewed through the `/info` endpoint):
+
+```json
+{
+  "iss": "http://jwt.mycompany.com",
+  "aud": "ansible",
+  "sub": "development"
+}
+```
+
+## Contributing
 
 To step into a development environment:
 
